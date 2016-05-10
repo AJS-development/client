@@ -12,17 +12,38 @@
 <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
 <script src="main_out.js?542"></script>
 <script>
+$(document).ready(function(){
+    function getConnection(){
 
-function connectToServer() {
-var defaultserv = "ogar-unlimited-andrews54757.c9users.io:8081"
-	connect("wss://" + defaultserv);
-}
+        var request = prompt("Enter server address:port", "127.0.0.1:443");
+
+        if(request != null){
+
+            try{
+
+                connect("wss://" + request);
+
+            }catch(e){
+
+
+
+            }
+
+        }else{
+
+
+        }
+
+    }
+    getConnection();
+
+});
 
 
 </script>
 <style>body{padding:0;margin:0;overflow:hidden;}#canvas{position:absolute;left:0;right:0;top:0;bottom:0;width:100%;height:100%;}.checkbox label{margin-right:10px;}form{margin-bottom:0px;}.btn-play,.btn-settings,.btn-spectate{display:block;height:35px;}.btn-play{width:70%;float:left;}.btn-settings{width:13%;float:right;}.btn-spectate{display:block;float:right;}#adsBottom{position:absolute;left:0;right:0;bottom:0;}#adsBottomInner{margin:0px auto;width:728px;height:90px;border:5px solid white;border-radius:5px 5px 0px 0px;background-color:#FFFFFF;box-sizing:content-box;}.region-message{display:none;margin-bottom:12px;margin-left:6px;margin-right:6px;text-align:center;}#nick,#locationKnown #region{width:100%;float:left;}#locationUnknown #region{margin-bottom:15px;}#gamemode,#spectateBtn{width:33%;float:right;}#helloDialog{width:350px;background-color:#FFFFFF;margin:10px auto;border-radius:15px;padding:5px 15px 5px 15px;position:absolute;top:50%;left:50%;margin-right:-50%;-webkit-transform:translate(-50%,-50%);-ms-transform:translate(-50%,-50%);transform:translate(-50%,-50%);}#a300x250{width:300px;height:250px;background-repeat:no-repeat;background-size:contain;background-position:center center;}</style>
 </head>
-<body onload="connectToServer();">
+
 <div id="overlays" style="display:none; position: absolute; left: 0; right: 0; top: 0; bottom: 0; background-color: rgba(0,0,0,0.5); z-index: 200;">
 <div id="helloDialog">
 <form role="form">
