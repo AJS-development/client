@@ -602,7 +602,7 @@
                 ctx.fillRect(0, 0, canvasWidth, canvasHeight);
                 ctx.globalAlpha = 1;
             }
-        } else {
+        } else if (!hideGrid) {
             drawGrid();
         }
         nodelist.sort(function (a, b) {
@@ -666,7 +666,6 @@
         ctx.scale(viewZoom, viewZoom);
         var a = canvasWidth / viewZoom,
             b = canvasHeight / viewZoom;
-            if (!hideGrid) {
         for (var c = -.5 + (-nodeX + a / 2) % 50; c < a; c += 50) {
             ctx.beginPath();
             ctx.moveTo(c, 0);
@@ -679,7 +678,7 @@
             ctx.lineTo(a, c);
             ctx.stroke();
         }
-            }
+            
         ctx.restore()
     }
 
