@@ -23,7 +23,7 @@ $(document).ready(function(){
  if (request.indexOf("localhost") == -1 && request.indexOf("127.0.0.1") == -1) connect("wss://" + request); else connect("ws://" + request);
 
             }catch(e){
-
+$('#settings, #cantc').show();return false;
 connectionfail = true;
 
             }
@@ -58,6 +58,9 @@ connectionfail = true;
 <div class="form-group">
 <input id="nick" class="form-control" placeholder="Nick" maxlength="15"/>
 <br/>
+<div id="cantc" style="display:none;">
+<h5>Cannot connect to server, click the reconnect button below to try again</h5>
+</div>
 <br/>
 </div>
 <div class="form-group">
