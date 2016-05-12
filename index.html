@@ -13,9 +13,8 @@
 <script src="main_out.js?542"></script>
 <script>
 $(document).ready(function(){
-    
     function getConnection(){
-
+    var connectionfail = false;
         var request = prompt("Enter server address:port", "127.0.0.1:443");
 
         if(request != null){
@@ -25,7 +24,7 @@ $(document).ready(function(){
 
             }catch(e){
 
-
+connectionfail = true;
 
             }
 
