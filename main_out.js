@@ -270,9 +270,9 @@
         ws.onopen = onWsOpen;
         ws.onmessage = onWsMessage;
         ws.onclose = onWsClose;
-        ws.onerror = function () {
+        ws.onerror = function (e) {
             console.log("socket error");
-            $('#settings, #cantc').show();return false;
+            throw e
         }
     }
 
