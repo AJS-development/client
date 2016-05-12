@@ -39,6 +39,10 @@ $(document).ready(function(){
 
 });
 */
+function gConnect(request) {
+     if (request.indexOf("localhost") == -1 && request.indexOf("127.0.0.1") == -1) connect("wss://" + request); else connect("ws://" + request);
+
+}
 
 
 </script>
@@ -60,7 +64,7 @@ $(document).ready(function(){
 <input id="nick" class="form-control" placeholder="Nick" maxlength="15"/>
 <br/>
 <br/>
-<input id="ip" class="form-control" placeholder="ip" maxlength="20"/> <button type="submit" id="Connect" onclick="connect(document.getElementById('nick').value); return false;">Connect</button>
+<input id="ip" class="form-control" placeholder="ip" maxlength="20"/> <button type="submit" id="Connect" onclick="gConnect(document.getElementById('nick').value); return false;">Connect</button>
 <br/>
 </div>
 <div class="form-group">
