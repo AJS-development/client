@@ -272,6 +272,7 @@
         ws.onclose = onWsClose;
         ws.onerror = function () {
             console.log("socket error");
+            $('#settings, #cantc').show();return false;
         }
     }
 
