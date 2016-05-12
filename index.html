@@ -20,8 +20,7 @@ $(document).ready(function(){
         if(request != null){
 
             try{
-
-                connect("wss://" + request);
+ if (request.indexOf("localhost") == -1 && request.indexOf("127.0.0.1") == -1) connect("wss://" + request); else connect("ws://" + request);
 
             }catch(e){
 
