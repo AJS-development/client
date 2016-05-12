@@ -666,6 +666,7 @@
         ctx.scale(viewZoom, viewZoom);
         var a = canvasWidth / viewZoom,
             b = canvasHeight / viewZoom;
+            if (!hideGrid) {
         for (var c = -.5 + (-nodeX + a / 2) % 50; c < a; c += 50) {
             ctx.beginPath();
             ctx.moveTo(c, 0);
@@ -678,6 +679,7 @@
             ctx.lineTo(a, c);
             ctx.stroke();
         }
+            }
         ctx.restore()
     }
 
@@ -803,6 +805,7 @@
             userScore = 0,
             showDarkTheme = false,
             showMass = false,
+            hideGrid = false,
             posX = nodeX = ~~((leftPos + rightPos) / 2),
             posY = nodeY = ~~((topPos + bottomPos) / 2),
             posSize = 1,
@@ -841,6 +844,9 @@
             };
             wHandle.setDarkTheme = function (arg) {
                 showDarkTheme = arg
+            };
+            wHandle.setHideGrid = function (arg) {
+                hideGrid = arg
             };
             wHandle.setColors = function (arg) {
                 showColor = arg
