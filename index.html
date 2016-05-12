@@ -13,6 +13,7 @@
 <script src="main_out.js?542"></script>
 <script>
 $(document).ready(function(){
+    /*
     function getConnection(){
 
         var request = prompt("Enter server address:port", "127.0.0.1:443");
@@ -37,6 +38,7 @@ $(document).ready(function(){
     getConnection();
 
 });
+*/
 
 
 </script>
@@ -58,7 +60,7 @@ $(document).ready(function(){
 <input id="nick" class="form-control" placeholder="Nick" maxlength="15"/>
 <br/>
 <br/>
-<input id="ip" class="form-control" placeholder="ip" maxlength="20"/> <button type="submit" id="playBtn" onclick="connect(document.getElementById('nick').value); return false;" class="btn btn-play btn-primary btn-needs-server">Connect</button>
+<input id="ip" class="form-control" placeholder="ip" maxlength="20"/> <button type="submit" id="Connect" onclick="connect(document.getElementById('nick').value); return false;">Connect</button>
 <br/>
 </div>
 <div class="form-group">
