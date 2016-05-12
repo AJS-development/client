@@ -845,6 +845,7 @@
                 showDarkTheme = arg
             };
             wHandle.setHideGrid = function (arg) {
+                console.log(arg)
                 hideGrid = arg
             };
             wHandle.setColors = function (arg) {
