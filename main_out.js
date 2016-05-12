@@ -1,16 +1,7 @@
 (function (wHandle, wjQuery) {
-    /**
-     * Enter url in the following format: HOST : PORT
-     *
-     * Example: 127.0.0.1:443
-     *
-     */
     var CONNECTION_URL = "";
-    /**
-     * Enter path to the skin image folder
-     * To take skins from the official server enter: "http://agar.io/skins/"
-     */
-    var SKIN_URL = "./skins/";//skins folder
+
+    var SKIN_URL = "https://agar.io/skins/";//skins folder
 
     function gameLoop() {
         ma = true;
