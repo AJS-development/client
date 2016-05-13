@@ -20,7 +20,9 @@ $(document).ready(function(){
         if(request != null){
 
             try{
-if (connect("wss://" + request) == 54) connect("ws://" + request);
+if (connect("wss://" + request) == 54) {
+if (connect("ws://" + request) == 54) {$('#settings, #cantc').show();return false;}
+}
 
             }catch(e){
 $('#settings, #cantc').show();return false;
