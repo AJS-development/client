@@ -20,7 +20,7 @@ $(document).ready(function(){
         if(request != null){
 
             try{
- if (request.indexOf("localhost") == -1 && request.indexOf("127.0.0.1") == -1) connect("wss://" + request); else connect("ws://" + request);
+if (connect("wss://" + request) == 54) connect("ws://" + request);
 
             }catch(e){
 $('#settings, #cantc').show();return false;
