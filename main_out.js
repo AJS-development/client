@@ -263,7 +263,7 @@
         ws.onclose = onWsClose;
         ws.onerror = function (e) {
             console.log("socket error");
-            wjQuery('#settings, #cantc').show();
+            return 54
         }
     }
 
