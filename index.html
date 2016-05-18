@@ -1,7 +1,5 @@
 <!DOCTYPE html>
 <html>
-Client closed until reply from moneyclip (im emailing them)
-<!--
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -20,7 +18,10 @@ $(document).ready(function(){
         var request = prompt("Enter server address:port", "127.0.0.1:443");
 
         if(request != null){
-
+if (request.indexOf("127.0.0.1") != -1 || request.indexOf("localhost") != -1) {
+  connect("ws://" + request);
+} else {
+          
             try{
                 var co = connect("wss://" + request)
 if (co == 54) {
@@ -33,7 +34,7 @@ $('#settings, #cantc').show();return false;
 connectionfail = true;
 
             }
-
+        }
         }else{
 $('#settings, #cantc').show();return false;
 connectionfail = true;
@@ -105,6 +106,5 @@ connectionfail = true;
 <canvas id="canvas" width="800" height="600"></canvas>
 <div style="font-family:'Ubuntu'">&nbsp;</div>
 </body>
-//-->
-</html>
 
+</html>
