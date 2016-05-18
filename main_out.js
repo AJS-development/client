@@ -38,6 +38,8 @@
         }
         var spacePressed = false,
             qPressed = false,
+            ePressed = false,
+            rPressed = false,
             wPressed = false;
         wHandle.onkeydown = function (event) {
             switch (event.keyCode) {
@@ -61,6 +63,22 @@
                         wPressed = true;
                     }
                     break;
+                 case 69: // e key
+                    if (!ePressed) {
+                        sendMouseMove();
+                        sendUint8(22);
+                        ePressed = true;
+                      console.log("E pressed")
+                    }
+                    break;
+                case 82: // r key
+                    if (!rPressed) {
+                        sendMouseMove();
+                        sendUint8(23);
+                        rPressed = true;
+                      console.log("R pressed")
+                    }
+                    break;
                 case 27: // quit
                     showOverlays(true);
                     break;
@@ -73,6 +91,12 @@
                     break;
                 case 87:
                     wPressed = false;
+                    break;
+                case 69:
+                    ePressed = false;
+                    break;
+                case 82:
+                    rPressed = false;
                     break;
                 case 81:
                     if (qPressed) {
@@ -294,6 +318,7 @@
     function onWsClose() {
         console.log("socket close");
         setTimeout(showConnecting, delay);
+      wjQuery('#settings, #disc').show();return false;
         delay *= 1.5
     }
 
