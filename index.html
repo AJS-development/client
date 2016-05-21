@@ -20,14 +20,44 @@
     <meta property="og:image:width" content="1200"/>
     <meta property="og:image:height" content="630"/>
     <meta property="og:type" content="website"/>
-    <title>Agar.io</title>
+    <title>OgarUnlimited.io</title>
     <link id="favicon" rel="icon" type="image/png" href="favicon-32x32.png"/>
     <link href='https://fonts.googleapis.com/css?family=Ubuntu:700' rel='stylesheet' type='text/css'>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
     <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="Vector2.js"></script>
     <script src="main_out.js?542"></script>
-	
+    <script>
+    	$(document).ready(function(){
+    function getConnection(){
+    var connectionfail = false;
+        var request = prompt("Enter server address:port", "127.0.0.1:443");
+        if(request != null){
+if (request.indexOf("127.0.0.1") != -1 || request.indexOf("localhost") != -1) {
+  connect("ws://" + request);
+} else {
+          
+            try{
+                var co = connect("wss://" + request)
+if (co == 54) {
+    console.log(co)
+if (connect("ws://" + request) == 54) {$('#settings, #cantc').show();return false;}
+}
+            }catch(e){
+$('#settings, #cantc').show();return false;
+connectionfail = true;
+            }
+        }
+        }else{
+$('#settings, #cantc').show();return false;
+connectionfail = true;
+        }
+    }
+    getConnection();
+});
+
+    	
+    </script>
     <style>body {
         padding: 0;
         margin: 0;
@@ -163,11 +193,12 @@
     <div id="helloDialog">
         <form role="form">
             <div class="form-group">
-                <div style="float: left; margin-left: 20px;"><h2>Tomsterley Agario</h2></div>
+                <div style="float: left; margin-left: 20px;"><h2>OgarUnlimited.io</h2></div>
                 <div class="fb-like" style="float: right; margin-top: 30px;"
                      data-href="https://www.facebook.com/playagar.io" data-layout="button" data-action="like"
                      data-show-faces="true" data-share="true"></div>
                 <br clear="both"/>
+                <a href="https://github.com/AJS-development/Ogar-unlimited">Ogar Unlimited - Github</a>
             </div>
             <div class="form-group">
                 <input id="nick" class="form-control" placeholder="Nick" maxlength="15"/>
@@ -213,6 +244,10 @@
                         class="btn btn-info btn-settings"><i class="glyphicon glyphicon-cog"></i></button>
                 <br clear="both"/>
             </div>
+            <div id="cantc" style="display:none;">
+<h4>Cannot connect to server, click the reconnect button below to try again</h4>
+<br/>
+</div>
             <div id="settings" class="checkbox" style="display:none;">
                 <div class="form-group" id="mainform">
                     <div id="locationKnown"></div>
@@ -234,11 +269,6 @@
         </form>
         <div id="instructions">
             <hr/>
-            <center><span class="text-muted">
-This game is currently in</br>
-development by</br>
-tomsterley</br>
-</span></center>
         </div>
         <hr/>
         <center>
