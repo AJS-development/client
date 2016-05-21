@@ -768,7 +768,7 @@
 
     function sendChat(str) {
         console.log(str)
-        if (wsIsOpen() && (str.length < 200) && (str.length > 0)) {
+         if (wsIsOpen() && (str.length < 200) && (str.length > 0) && !hideChat) {
             var msg = prepareData(2 + 2 * str.length);
             var offset = 0;
             msg.setUint8(offset++, 99);
