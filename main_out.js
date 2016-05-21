@@ -1135,6 +1135,7 @@
         showSkin = true,
         showName = true,
         showColor = false,
+        hideGrid = false,
         ua = false,
         userScore = 0,
         showDarkTheme = false,
@@ -1187,6 +1188,9 @@
     };
     wHandle.setShowMass = function (arg) {
         showMass = arg
+    };
+    wHandle.setHideGrid = function (arg) {
+        hideGrid = arg
     };
     wHandle.setSmooth = function (arg) {
         smoothRender = arg ? 2 : .4
