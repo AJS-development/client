@@ -405,7 +405,7 @@
             }
             ws = null
         }
-        var c = CONNECTION_URL;
+        var c = wsUrl
         wsUrl = "ws://" + c;
         nodesOnScreen = [];
         playerCells = [];
