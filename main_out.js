@@ -767,6 +767,7 @@
     }
 
     function sendChat(str) {
+        console.log(str)
         if (wsIsOpen() && (str.length < 200) && (str.length > 0)) {
             var msg = prepareData(2 + 2 * str.length);
             var offset = 0;
