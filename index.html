@@ -190,9 +190,9 @@ connectionfail = true;
                 <a href="https://github.com/AJS-development/Ogar-unlimited">Ogar Unlimited - Github</a>
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group" style="display:none;">
                 <input id="nick" class="form-control" placeholder="Nick" maxlength="15"/>
-                <select id="gamemode" class="form-control" onchange="setGameMode($(this).val());" required>
+                <select id="gamemode" class="form-control" onchange="setGameMode($(this).val());">
                     <option selected value="">FFA</option>
                     <option value=":teams">Teams</option>
                     <option value=":experimental">Experimental</option>
@@ -200,7 +200,7 @@ connectionfail = true;
                 <br clear="both"/>
             </div>
             <div id="locationUnknown" style="display:none;">
-                <select id="region" class="form-control" onchange="setRegion($('#region').val());" required>
+                <select id="region" class="form-control" onchange="setRegion($('#region').val());">
                     <option selected disabled value=""> -- Select a Region --</option>
                     <option value="US-Fremont">US West</option>
                     <option value="US-Atlanta">US East</option>
