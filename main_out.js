@@ -878,7 +878,7 @@
                 ctx.fillRect(0, 0, canvasWidth, canvasHeight);
                 ctx.globalAlpha = 1;
             }
-        } else {
+        } else if (!hideGrid) {
             drawGrid();
         }
         nodelist.sort(function (a, b) {
