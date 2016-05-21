@@ -19,28 +19,12 @@
     	$(document).ready(function(){
     function getConnection(){
     var connectionfail = false;
-        var request = prompt("Enter server address:port", "127.0.0.1:443");
+        var request = prompt("Enter server address:port (if ws doesnt work, use wss)", "ws://127.0.0.1:443");
         if(request != null){
-if (request.indexOf("127.0.0.1") != -1 || request.indexOf("localhost") != -1) {
-  connect("ws://" + request);
-} else {
-          
-            try{
-                var co = connect("wss://" + request)
-if (co == 54) {
-    console.log(co)
-if (connect("ws://" + request) == 54) {$('#settings, #cantc').show();return false;}
+
+  connect(request); 
 }
-            }catch(e){
-$('#settings, #cantc').show();return false;
-connectionfail = true;
-            }
-        }
-        }else{
-$('#settings, #cantc').show();return false;
-connectionfail = true;
-        }
-    }
+}
     getConnection();
 });
 
