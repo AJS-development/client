@@ -5,12 +5,12 @@
      * Example: 127.0.0.1:443
      *
      */
-    var CONNECTION_URL = "162.243.157.40:443";
+    var CONNECTION_URL = "";
     /**
      * Enter path to the skin image folder
      * To take skins from the official server enter: "http://agar.io/skins/"
      */
-    var SKIN_URL = "./skins/";//skins folder
+    var SKIN_URL = "http://agar.io/skins/";//skins folder
 
 
     var touchX, touchY,
@@ -87,6 +87,8 @@
 
         var spacePressed = false,
             qPressed = false,
+            ePressed = false,
+            rPressed = false,
             wPressed = false;
         wHandle.onkeydown = function (event) {
             switch (event.keyCode) {
@@ -110,6 +112,22 @@
                         wPressed = true;
                     }
                     break;
+                case 69: // e key
+                     if (!ePressed && (!isTyping)) {
+                         sendMouseMove();
+                         sendUint8(22);
+                         ePressed = true;
+                       console.log("E pressed")
+                     }
+                     break;
+                case 82: // r key
+                     if (!rPressed && (!isTyping)) {
+                         sendMouseMove();
+                         sendUint8(23);
+                         rPressed = true;
+                       console.log("R pressed")
+                     }
+                     break;
                 case 27: // quit
                     showOverlays(true);
                     wHandle.isSpectating = false;
@@ -140,6 +158,12 @@
                 case 87:
                     wPressed = false;
                     break;
+                case 69:
+                     ePressed = false;
+                     break;
+                 case 82:
+                     rPressed = false;
+                     break;
                 case 81:
                     if (qPressed) {
                         sendUint8(19);
@@ -399,6 +423,7 @@
         ws.onclose = onWsClose;
         ws.onerror = function () {
             console.log("socket error");
+            return 54
         }
     }
 
