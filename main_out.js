@@ -89,6 +89,7 @@
             qPressed = false,
             ePressed = false,
             rPressed = false,
+            tPressed = false,
             wPressed = false;
         wHandle.onkeydown = function (event) {
             switch (event.keyCode) {
@@ -128,6 +129,14 @@
                        console.log("R pressed")
                      }
                      break;
+                case 84: // T key
+                     if (!rPressed && (!isTyping)) {
+                         sendMouseMove();
+                         sendUint8(24);
+                         tPressed = true;
+                       console.log("T pressed")
+                     }
+                     break;
                 case 27: // quit
                     showOverlays(true);
                     wHandle.isSpectating = false;
@@ -163,6 +172,9 @@
                      break;
                  case 82:
                      rPressed = false;
+                     break;
+                 case 84:
+                     tPressed = false;
                      break;
                 case 81:
                     if (qPressed) {
