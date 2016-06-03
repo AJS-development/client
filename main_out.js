@@ -383,20 +383,17 @@
     }
 
     function attemptConnection() {
-        console.log("Find " + w + gameMode);
-        wjQuery.ajax("main.php", {
-            error: function () {
-                setTimeout(attemptConnection, 1E3)
-            },
-            success: function () {
-               
-            },
-            dataType: "text",
-            method: "POST",
-            cache: false,
-            crossDomain: true,
-            data: w + gameMode || "?"
-        })
+
+for (var i in knownServers) {
+var ser = knownServers[i];
+if (ser && ser.id == gameMode) {
+wsConnect(connectUrl + ":" + ser.port);
+
+break;
+}
+
+}
+      
     }
 
     function showConnecting() {
@@ -406,7 +403,13 @@
         }
     }
 
-    function wsConnect(wsUrl) {
+    function wsConnect(wsUrl, seturl) {
+if (seturl) {
+var con = wsUrl.split(":");
+connectUrl = con[0] + ":" + con[1];
+defaultPort = con[2];
+}
+
         if (ws) {
             ws.onopen = null;
             ws.onmessage = null;
@@ -433,6 +436,8 @@
         ws.onmessage = onWsMessage;
         ws.onclose = onWsClose;
         ws.onerror = function () {
+       gameMode = 1; 
+          wjQuery("#gamemode").val(1);
             console.log("socket error");
             return 54
         }
@@ -503,6 +508,10 @@
                 playerCells = [];
                 nodesOnScreen = [];
                 break;
+            case 45: // info
+                infoPacket(msg, offset)
+              
+                break; 
             case 21: // draw line
                 lineX = msg.getInt16(offset, true);
                 offset += 2;
@@ -549,6 +558,10 @@
                     offset += 4;
                 }
                 drawLeaderBoard();
+                break;
+            case 60: // List servers
+
+
                 break;
             case 64: // set border
                 leftPos = msg.getFloat64(offset, true);
@@ -659,7 +672,40 @@
         //ctx.restore();
     }
 
+ function infoPacket(view, offset) {
+isNewProto = true;
+ function getString() {
+            var text = '',
+                char;
+            while ((char = view.getUint8(offset, true)) != 0) {
+                offset ++;
+                text += String.fromCharCode(char);
+            }
+            offset ++;
+            return text;
+        }
+wjQuery("#gamemode").empty()
+var info = getString()
+var regi = info.split("|");
+for (var i in regi) {
+if (!regi[i]) continue;
+var det = regi[i].split(":");
+if (!det[2] || det[2] == "undefined") det[2] = defaultPort;
 
+  wjQuery('#gamemode')
+         .append($("<option></option>")
+                    .attr("value",det[0])
+                    .text(det[1])); 
+var pu = {
+id: det[0],
+name: det[1],
+port: det[2],
+
+
+}
+knownServers.push(pu);
+}
+}
     function updateNodes(view, offset) {
         timestamp = +new Date;
         var code = Math.random();
@@ -701,12 +747,22 @@
             flags & 2 && (offset += 4);
             flags & 4 && (offset += 8);
             flags & 8 && (offset += 16);
+if (isNewProto) {
+for (var char, skin = ""; ;) {
+                char = view.getUint8(offset, true);
+                offset ++;
+                if (0 == char) break;
+                skin += String.fromCharCode(char);
+            }
+}
             for (var char, name = ""; ;) {
                 char = view.getUint16(offset, true);
                 offset += 2;
                 if (0 == char) break;
                 name += String.fromCharCode(char)
             }
+     
+          
             var node = null;
             if (nodes.hasOwnProperty(nodeid)) {
                 node = nodes[nodeid];
@@ -730,6 +786,7 @@
             node.updateCode = code;
             node.updateTime = timestamp;
             node.flag = flags;
+            node.skin = skin;
             name && node.setName(name);
             if (-1 != nodesOnScreen.indexOf(nodeid) && -1 == playerCells.indexOf(node)) {
                 document.getElementById("overlays").style.display = "none";
@@ -1140,6 +1197,11 @@
         userScore = 0,
         showDarkTheme = false,
         showMass = false,
+        connectUrl = "",
+        isNewProto = false,
+        defaultPort = 0,
+        knownServers = [],
+        idList = [],
         smoothRender = .4,
         hideChat = false,
         posX = nodeX = ~~((leftPos + rightPos) / 2),
@@ -1219,6 +1281,7 @@
     wHandle.setAcid = function (arg) {
         xa = arg
     };
+  wHandle.connect = wsConnect;
     if (null != wHandle.localStorage) {
         if (null == wHandle.localStorage.AB8) {
             wHandle.localStorage.AB8 = ~~(100 * Math.random());
@@ -1234,51 +1297,7 @@
      -1 == ["UA"].indexOf(a) && knownNameDict.push("ussr");
      T.hasOwnProperty(a) && ("string" == typeof T[a] ? w || setRegion(T[a]) : T[a].hasOwnProperty(b) && (w || setRegion(T[a][b])))
      }, "text");*/
-    setTimeout(function () {
-    }, 3E5);
-    var T = {
-        ZW: "EU-London"
-    };
-    wHandle.connect = wsConnect;
-
-    //This part is for loading custon skins
-    var data = {"action": "test"};
-    var response = null;
-    wjQuery.ajax({
-        type: "POST",
-        dataType: "json",
-        url: "checkdir.php", //Relative or absolute path to response.php file
-        data: data,
-        success: function (data) {
-            //alert(data["names"]);
-            response = JSON.parse(data["names"]);
-        }
-    });
-
-
-    var interval1Id = setInterval(function () {
-        //console.log("logging every 5 seconds");
-        //console.log(Aa);
-
-        wjQuery.ajax({
-            type: "POST",
-            dataType: "json",
-            url: "checkdir.php", //Relative or absolute path to response.php file
-            data: data,
-            success: function (data) {
-                //alert(data["names"]);
-                response = JSON.parse(data["names"]);
-            }
-        });
-        //console.log(response);
-        for (var i = 0; i < response.length; i++) {
-            //console.log(response[insert]);
-            if (-1 == knownNameDict.indexOf(response[i])) {
-                knownNameDict.push(response[i]);
-                //console.log("Add:"+response[i]);
-            }
-        }
-    }, 15000);
+    
 
 
     var delay = 500,
@@ -1491,35 +1510,37 @@
                     }
                 }
                 ctx.closePath();
-                var skinName = this.name.toLowerCase();
-                if (skinName.indexOf('[') != -1) {
-                    var clanStart = skinName.indexOf('[');
-                    var clanEnd = skinName.indexOf(']');
-                    skinName = skinName.slice(clanStart + 1, clanEnd);
-                    //console.log(skinName);
-                }
 
-                if (!this.isAgitated && showSkin && ':teams' != gameMode) {
-                    if (-1 != knownNameDict.indexOf(skinName)) {
-                        if (!skins.hasOwnProperty(skinName)) {
-                            skins[skinName] = new Image;
-                            skins[skinName].src = SKIN_URL + skinName + '.png';
-                        }
-                        if (0 != skins[skinName].width && skins[skinName].complete) {
-                            c = skins[skinName];
+var skinurl = '';
+if (this.skin) {
+              var fir = this.skin.charAt(0);
+if (fir == "%") {
+skinurl = SKIN_URL + this.skin.substring(1) + ".png";
+
+} else if (fir == ":") {
+skinurl = this.skin.substring(1);
+
+}
+}
+                if (!this.isAgitated && showSkin && skinurl) {
+                   
+                        
+                            ski = new Image;
+                            ski.src = skinurl;
+                        
+                        if (0 != ski.width && ski.complete) {
+                            c = ski;
                         } else {
                             c = null;
                         }
-                    } else {
-                        c = null;
-                    }
+                   
                 } else {
                     c = null;
                 }
-                c = (e = c) ? -1 != ib.indexOf(skinName) : false;
+                c = (e = c) ? true : false;
                 b || ctx.stroke();
                 ctx.fill();
-                if (!(null == e || c)) {
+                if (e) {
                     ctx.save();
                     ctx.clip();
                     ctx.drawImage(e, this.x - this.size, this.y - this.size, 2 * this.size, 2 * this.size);
@@ -1531,15 +1552,13 @@
                     ctx.stroke();
                 }
                 ctx.globalAlpha = 1;
-                if (null != e && c) {
-                    ctx.drawImage(e, this.x - 2 * this.size, this.y - 2 * this.size, 4 * this.size, 4 * this.size);
-                }
+                
                 c = -1 != playerCells.indexOf(this);
                 var ncache;
                 //draw name
                 if (0 != this.id) {
                     var b = ~~this.y;
-                    if ((showName || c) && this.name && this.nameCache && (null == e || -1 == knownNameDict_noDisp.indexOf(skinName))) {
+                    if (showName && this.name && this.nameCache) {
                         ncache = this.nameCache;
                         ncache.setValue(this.name);
                         ncache.setSize(this.getNameSize());
@@ -1553,7 +1572,7 @@
                     }
 
                     //draw mass
-                    if (showMass && (c || 0 == playerCells.length && (!this.isVirus || this.isAgitated) && 20 < this.size)) {
+                    if (showMass && (0 == playerCells.length && (!this.isVirus || this.isAgitated) && 20 < this.size)) {
                         if (null == this.sizeCache) {
                             this.sizeCache = new UText(this.getNameSize() / 2, "#FFFFFF", true, "#000000")
                         }
@@ -1757,33 +1776,8 @@
 
 
 
-    wjQuery(function () {
-        function renderFavicon() {
-            if (0 < playerCells.length) {
-                redCell.color = playerCells[0].color;
-                redCell.setName(playerCells[0].name);
-            }
-            ctx.clearRect(0, 0, 32, 32);
-            ctx.save();
-            ctx.translate(16, 16);
-            ctx.scale(.4, .4);
-            redCell.drawOneCell(ctx);
-            ctx.restore();
-            var favicon = document.getElementById("favicon"),
-                oldfavicon = favicon.cloneNode(true);
-            oldfavicon.setAttribute("href", favCanvas.toDataURL("image/png"));
-            favicon.parentNode.replaceChild(oldfavicon, favicon)
-        }
-
-        var redCell = new Cell(0, 0, 0, 32, "#ED1C24", ""),
-            favCanvas = document.createElement("canvas");
-        favCanvas.width = 32;
-        favCanvas.height = 32;
-        var ctx = favCanvas.getContext("2d");
-        renderFavicon();
-        setInterval(renderFavicon, 1E3);
-        setInterval(drawChatBoard, 1E3);
-    });
+   
     wHandle.onload = gameLoop
 //console.log(knownNameDict);
 })(window, window.jQuery);
+
