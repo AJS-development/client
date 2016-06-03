@@ -9,12 +9,12 @@
     <meta property="og:image:height" content="630"/>
     <meta property="og:type" content="website"/>
     <title>OgarUnlimited.io</title>
-    <link id="favicon" rel="icon" type="image/png" href="favicon-32x32.png"/>
+    <link id="fav" rel="icon" type="image/png" href="ogaru.png"/>
     <link href='https://fonts.googleapis.com/css?family=Ubuntu:700' rel='stylesheet' type='text/css'>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
     <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="Vector2.js"></script>
-    <script src="main_out.js?542"></script>
+    <script src="main_out.js?511"></script>
     <script>
     	$(document).ready(function(){
     function getConnection(){
@@ -22,7 +22,7 @@
         var request = prompt("Enter server address:port (if ws doesnt work, use wss)", "ws://127.0.0.1:443");
         if(request != null){
 
-         connect(request); 
+         connect(request, true); 
           }   
 }
         
@@ -45,7 +45,7 @@
             method = "ws";
             
           }
-          connect(method + "://" + $_GET["ip"]);
+          connect(method + "://" + $_GET["ip"], true);
           
         }else{
           
