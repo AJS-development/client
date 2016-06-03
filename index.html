@@ -16,45 +16,34 @@
     <script src="Vector2.js"></script>
     <script src="main_out.js?509"></script>
     <script>
-    	$(document).ready(function(){
-    function getConnection(){
-    var connectionfail = false;
-        var request = prompt("Enter server address:port (if ws doesnt work, use wss)", "ws://127.0.0.1:443");
-        if(request != null){
-
-         connect(request, true); 
-          }   
-}
-        
-        
+    function getConnection() {
+      var connectionfail = false;
+      var request = prompt("Enter server address:port (if ws doesnt work, use wss)", "ws://127.0.0.1:443");
+      if (request != null) {
+        connect(request, true);
+      }
+    }
     var $_GET = {};
     document.location.search.replace(/\??(?:([^=]+)=([^&]*)&?)/g, function() {
-    function decode(s) {
-      return decodeURIComponent(s.split("+").join(" "));
-    }
-    $_GET[decode(arguments[1])] = decode(arguments[2]);
+      function decode(s) {
+        return decodeURIComponent(s.split("+").join(" "));
+      }
+      $_GET[decode(arguments[1])] = decode(arguments[2]);
     });
-    
-        var method;
-        if($_GET["ip"]){
-          
-          if($_GET["method"]){
-           method = $_GET["ip"];
-          }else{
-            
-            method = "ws";
-            
-          }
-          connect(method + "://" + $_GET["ip"], true);
-          
-        }else{
-          
-          getConnection();
-          
-        }
-});
-
-    	
+    var method;
+    if ($_GET["ip"]) {
+      if ($_GET["method"]) {
+        method = $_GET["method"];
+      }
+      else {
+        method = "ws";
+      }
+      connect(method + "://" + $_GET["ip"], true);
+    }
+    else {
+      getConnection();
+    }
+    });
     </script>
     <style>body {
         padding: 0;
