@@ -1558,7 +1558,7 @@ skinurl = this.skin.substring(1);
                 //draw name
                 if (0 != this.id) {
                     var b = ~~this.y;
-                    if (showName && this.name && this.nameCache) {
+                    if ((showName || c) && this.name && this.nameCache) {
                         ncache = this.nameCache;
                         ncache.setValue(this.name);
                         ncache.setSize(this.getNameSize());
@@ -1572,7 +1572,7 @@ skinurl = this.skin.substring(1);
                     }
 
                     //draw mass
-                    if (showMass && (0 == playerCells.length && (!this.isVirus || this.isAgitated) && 20 < this.size)) {
+                    if (showMass && (c || 0 == playerCells.length && (!this.isVirus || this.isAgitated) && 20 < this.size)) {
                         if (null == this.sizeCache) {
                             this.sizeCache = new UText(this.getNameSize() / 2, "#FFFFFF", true, "#000000")
                         }
@@ -1780,4 +1780,5 @@ skinurl = this.skin.substring(1);
     wHandle.onload = gameLoop
 //console.log(knownNameDict);
 })(window, window.jQuery);
+
 
