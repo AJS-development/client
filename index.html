@@ -14,7 +14,7 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
     <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="Vector2.js"></script>
-    <script src="main_out.js?51"></script>
+    <script src="main_out.js?2"></script>
     <script>
     	$(document).ready(function(){
     function getConnection(){
@@ -254,22 +254,25 @@
                     </button>
                     <br clear="both"/>
                 </div>
-                <div style="margin: 6px;">
-                    <label><input type="checkbox" onchange="setSkins(!$(this).is(':checked'));"> No skins</label>
-                    <label><input type="checkbox" onchange="setNames(!$(this).is(':checked'));"> No names</label>
-                    <label><input type="checkbox" onchange="setDarkTheme($(this).is(':checked'));"> Dark Theme</label>
-                    <label><input type="checkbox" onchange="setColors($(this).is(':checked'));"> No colors</label>
-                    <label><input type="checkbox" onchange="setShowMass($(this).is(':checked'));"> Show mass</label>
-                    <label><input type="checkbox" onchange="setHideChat($(this).is(':checked'));"> Hide chat</label>
-                    <label><input type="checkbox" onchange="setSmooth($(this).is(':checked'));"> Smooth Render</label>
-                    <label><input type="checkbox" onchange="setAcid($(this).is(':checked'));"> Acid mode</label>
-                    <label><input type="checkbox" onchange="setHideGrid($(this).is(':checked'));">Hide Grid</label>
+               <div style="margin: 6px;">
+                    <label><input id="cskin" type="checkbox" onchange="setSkins(!$(this).is(':checked'));"> No skins</label>
+                    <label><input id="cname" type="checkbox" onchange="setNames(!$(this).is(':checked'));"> No names</label>
+                    <label><input id="cdark" type="checkbox" onchange="setDarkTheme($(this).is(':checked'));"> Dark Theme</label>
+                    <label><input id="ccolor" type="checkbox" onchange="setColors($(this).is(':checked'));"> No colors</label>
+                    <label><input id="cmass" type="checkbox" onchange="setShowMass($(this).is(':checked'));"> Show mass</label>
+                    <label><input id="cchat" type="checkbox" onchange="setHideChat($(this).is(':checked'));"> Hide chat</label>
+                    <label><input id="csmooth" type="checkbox" onchange="setSmooth($(this).is(':checked'));"> Smooth Render</label>
+                    <label><input id="cacid" type="checkbox" onchange="setAcid($(this).is(':checked'));"> Acid mode</label>
+                    <label><input id="cgrid" type="checkbox" onchange="setHideGrid($(this).is(':checked'));">Hide Grid</label>
                     <label><button onclick="getConnection()">Reconnect</button></label>
                 </div>
             </div>
         </form>
         <div id="instructions">
             <hr/>
+          <p>Control your cell using the mouse, w for eject, space for split. Add &lt;skinname&gt; in your username for skins.
+            
+          </p>
         </div>
         <hr/>
         <center>
@@ -317,4 +320,3 @@
 
 
 </html>
-
