@@ -10,7 +10,7 @@
      * Enter path to the skin image folder
      * To take skins from the official server enter: "http://agar.io/skins/"
      */
-    var SKIN_URL = "http://agar.io/skins/";//skins folder
+    var SKIN_URL = "http://ogarul.io/skins/";//skins folder
 
 
     var touchX, touchY,
@@ -97,27 +97,27 @@
                     if ((!spacePressed) && (!isTyping)) {
                         sendMouseMove();
                         sendUint8(17);
-                        spacePressed = true;
+                        if (!sMacro) spacePressed = true;
                     }
                     break;
                 case 81: // key q pressed
                     if ((!qPressed) && (!isTyping)) {
                         sendUint8(18);
-                        qPressed = true;
+                        if (!qMacro) qPressed = true;
                     }
                     break;
                 case 87: // eject mass
                     if ((!wPressed) && (!isTyping)) {
                         sendMouseMove();
                         sendUint8(21);
-                        wPressed = true;
+                        if (!wMacro) wPressed = true;
                     }
                     break;
                 case 69: // e key
                      if (!ePressed && (!isTyping)) {
                          sendMouseMove();
                          sendUint8(22);
-                         ePressed = true;
+                         if (!eMacro) ePressed = true;
                        console.log("E pressed")
                      }
                      break;
@@ -125,7 +125,7 @@
                      if (!rPressed && (!isTyping)) {
                          sendMouseMove();
                          sendUint8(23);
-                         rPressed = true;
+                         if (!rMacro) rPressed = true;
                        console.log("R pressed")
                      }
                      break;
@@ -504,6 +504,9 @@ defaultPort = con[2];
                 posSize = msg.getFloat32(offset, true);
                 offset += 4;
                 break;
+            case 70: // clientpacket
+                clientPacket(msg, offset);
+                break;
             case 20: // clear nodes
                 playerCells = [];
                 nodesOnScreen = [];
@@ -706,6 +709,75 @@ port: det[2],
 knownServers.push(pu);
 }
 }
+    function clientPacket(view, offset) {
+function getString() {
+            var text = '',
+                char;
+            while ((char = view.getUint8(offset, true)) != 0) {
+                offset ++;
+                text += String.fromCharCode(char);
+            }
+            offset ++;
+            return text;
+        }
+      var rawData = getString();
+  var Data = JSON.parse(rawData);
+  for (var i in Data) {
+clientData[i] = Data[i];
+}
+/*
+ // Macros
+    sMacro: 0,
+    wMacro: 0,
+    qMacro: 0,
+    eMacro: 0,
+    rMacro: 0,
+    
+    // Current client configs
+    darkBG: 1,
+    chat: 2,
+    skins: 2,
+    grid: 2,
+    acid: 1,
+    colors: 2,
+    names: 2,
+    showMass: 1,
+    smooth: 1,
+    
+    // Future feature
+    minionCount: 0,
+    minimap: 0,
+    
+    // Others
+    maxName: 15,
+*/
+wjQuery("#nick").attr("maxlength", clientData.maxName);
+wMacro = (clientData.wMacro == 1) ? true : false;
+sMacro = (clientData.sMacro == 1) ? true : false;
+eMacro = (clientData.eMacro == 1) ? true : false;
+rMacro = (clientData.rMacro == 1) ? true : false;
+qMacro = (clientData.qMacro == 1) ? true : false;
+if (clientData.chat < 2) wjQuery("#chat_textbox").hide(); else wjQuery("#chat_textbox").show();
+showDarkTheme = (clientData.darkBG < 2) ? false : true;
+showSkin = (clientData.skins >= 2) ? true : false;
+hideGrid = (clientData.grid >= 2) ? false : true;
+xa = (clientData.acid < 2) ? false : true;
+showColor = (clientData.colors >= 2) ? false : true;
+showName = (clientData.names < 2) ? false : true;
+showMass = (clientData.showMass < 2) ? false : true;
+smoothRender = (clientData.smooth >= 2) ? 2 : .4;
+if (clientData.chat == 0 || clientData.chat == 3) wjQuery('#cchat').attr('disabled', true); else wjQuery('#cchat').attr('disabled', false);
+if (clientData.darkBG == 0 || clientData.darkBG == 3) wjQuery('#cdark').attr('disabled', true); else wjQuery('#cdark').attr('disabled', false);
+if (clientData.skins == 0 || clientData.skins == 3) wjQuery('#cskin').attr('disabled', true); else wjQuery('#cskin').attr('disabled', false);
+if (clientData.grid == 0 || clientData.grid == 3) wjQuery('#cgrid').attr('disabled', true); else wjQuery('#cgrid').attr('disabled', false);
+if (clientData.acid == 0 || clientData.acid == 3) wjQuery('#cacid').attr('disabled', true); else wjQuery('#cacid').attr('disabled', false);
+if (clientData.colors == 0 || clientData.colors == 3) wjQuery('#ccolor').attr('disabled', true); else wjQuery('#ccolor').attr('disabled', false);
+if (clientData.names == 0 || clientData.names == 3) wjQuery('#cname').attr('disabled', true); else wjQuery('#cname').attr('disabled', false);
+if (clientData.showMass == 0 || clientData.showMass == 3) wjQuery('#cmass').attr('disabled', true); else wjQuery('#cmass').attr('disabled', false);
+if (clientData.smooth == 0 || clientData.smooth == 3) wjQuery('#csmooth').attr('disabled', true); else wjQuery('#csmooth').attr('disabled', false);
+
+} 
+
     function updateNodes(view, offset) {
         timestamp = +new Date;
         var code = Math.random();
@@ -1195,6 +1267,39 @@ for (var char, skin = ""; ;) {
         hideGrid = false,
         ua = false,
         userScore = 0,
+        sMacro = false,
+        wMacro = false,
+        qMacro = false,
+        eMacro = false,
+        rMacro = false,
+        
+        clientData = { // Levels of "permission": 0 = not allowed, 1 = checked off but changeable, 2 = checked on but changeable, 3 = always on
+   
+   // Macros
+    sMacro: 0,
+    wMacro: 0,
+    qMacro: 0,
+    eMacro: 0,
+    rMacro: 0,
+    
+    // Current client configs
+    darkBG: 1,
+    chat: 2,
+    skins: 2,
+    grid: 2,
+    acid: 1,
+    colors: 2,
+    names: 2,
+    showMass: 1,
+    smooth: 1,
+    
+    // Future feature
+    minionCount: 0,
+    minimap: 0,
+    
+    // Others
+    maxName: 15,
+  },
         showDarkTheme = false,
         showMass = false,
         connectUrl = "",
@@ -1237,28 +1342,31 @@ for (var char, skin = ""; ;) {
     };
     wHandle.setRegion = setRegion;
     wHandle.setSkins = function (arg) {
-        showSkin = arg
+if (clientData.skins != 0 && clientData.skins != 3) showSkin = arg;
+
     };
     wHandle.setNames = function (arg) {
-        showName = arg
+       if (clientData.names != 0 && clientData.names != 3) showName = arg
     };
     wHandle.setDarkTheme = function (arg) {
-        showDarkTheme = arg
+       if (clientData.darkBG != 0 && clientData.darkBG != 3) showDarkTheme = arg
     };
     wHandle.setColors = function (arg) {
-        showColor = arg
+        if (clientData.colors != 0 && clientData.colors != 3) showColor = arg
     };
     wHandle.setShowMass = function (arg) {
-        showMass = arg
+       if (clientData.showMass != 0 && clientData.showMass != 3) showMass = arg
     };
     wHandle.setHideGrid = function (arg) {
-        hideGrid = arg
+
+       if (clientData.grid != 0 && clientData.grid != 3) hideGrid = arg
     };
     wHandle.setSmooth = function (arg) {
-        smoothRender = arg ? 2 : .4
+        if (clientData.smooth != 0 && clientData.smooth != 3) smoothRender = arg ? 2 : .4
     };
     wHandle.setHideChat = function (arg) {
         hideChat = arg;
+if (clientData.chat != 0 && clientData.chat != 3)
         if (arg) {
             wjQuery("#chat_textbox").hide();
         }
@@ -1279,7 +1387,7 @@ for (var char, skin = ""; ;) {
         }
     };
     wHandle.setAcid = function (arg) {
-        xa = arg
+        if (clientData.acid != 0 && clientData.acid != 3)xa = arg
     };
   wHandle.connect = wsConnect;
     if (null != wHandle.localStorage) {
@@ -1780,5 +1888,4 @@ skinurl = this.skin.substring(1);
     wHandle.onload = gameLoop
 //console.log(knownNameDict);
 })(window, window.jQuery);
-
 
