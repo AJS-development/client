@@ -750,7 +750,14 @@ clientData[i] = Data[i];
     
     // Others
     maxName: 15,
+    instructions: "";
+    customHTML:  "";
 */
+      if (Data.title) wjQuery("#titleh").text(clientData.title);
+      if (Data.defaultusername) wjQuery("#nick").val(clientData.defaultusername);
+      if (Data.nickplaceholder) wjQuery("#nick").attr("placeholder",clientData.nickplaceholder )
+     if(Data.instructions) wjQuery("#customins").text(clientData.instructions);
+      if (Data.customHTML) wjQuery("#customht").html(clientData.customHTML);
 wjQuery("#nick").attr("maxlength", clientData.maxName);
 wMacro = (clientData.wMacro == 1) ? true : false;
 sMacro = (clientData.sMacro == 1) ? true : false;
@@ -1299,6 +1306,11 @@ for (var char, skin = ""; ;) {
     
     // Others
     maxName: 15,
+    customHTML: "",
+    title: "",
+    defaultusername: "",
+    nickplaceholder: "",
+    instructions: "Control your cell using the mouse, w for eject, space for split. Add &lt;skinname&gt; in your username for skins.",
   },
         showDarkTheme = false,
         showMass = false,
