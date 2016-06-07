@@ -753,6 +753,11 @@ clientData[i] = Data[i];
     instructions: "";
     customHTML:  "";
 */
+      if (Data.leavemessage) {
+        wjQuery(window).bind('beforeunload',function () {
+return clientData.leavemessage;
+});
+      }
       if (Data.title) wjQuery("#titleh").text(clientData.title);
       if (Data.defaultusername) wjQuery("#nick").val(clientData.defaultusername);
       if (Data.nickplaceholder) wjQuery("#nick").attr("placeholder",clientData.nickplaceholder )
@@ -1310,6 +1315,7 @@ for (var char, skin = ""; ;) {
     title: "",
     defaultusername: "",
     nickplaceholder: "",
+    leavemessage: "",
     instructions: "Control your cell using the mouse, w for eject, space for split. Add &lt;skinname&gt; in your username for skins.",
   },
         showDarkTheme = false,
