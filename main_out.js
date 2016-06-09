@@ -196,7 +196,16 @@
         } else {
             setInterval(drawGameScene, 1E3 / 60);
         }
-        setInterval(sendMouseMove, 40);
+      mouseinterval = setInterval(sendMouseMove, 40);
+        setInterval(function() {
+          try {
+            clearInterval(mouseinterval)
+          } catch (e) {
+            console.log("e at 204");
+          }
+        mouseinterval = setInterval(sendMouseMove, 40);
+          
+        },5000);
         if (w) {
             wjQuery("#region").val(w);
         }
@@ -723,7 +732,8 @@ function getString() {
       var rawData = getString();
   var Data = JSON.parse(rawData);
   for (var i in Data) {
-clientData[i] = Data[i];
+    
+if (Data[i]) clientData[i] = Data[i];
 }
 /*
  // Macros
@@ -755,29 +765,32 @@ clientData[i] = Data[i];
 */
       if (Data.leavemessage) {
         wjQuery(window).bind('beforeunload',function () {
-return clientData.leavemessage;
+return clientData.leavemessage
 });
       }
-      if (Data.title) wjQuery("#titleh").text(clientData.title);
+      if (Data.title) {
+       wjQuery(document).prop('title', clientData.title);
+       wjQuery("#titleh").text(clientData.title);
+      }
       if (Data.defaultusername) wjQuery("#nick").val(clientData.defaultusername);
       if (Data.nickplaceholder) wjQuery("#nick").attr("placeholder",clientData.nickplaceholder )
      if(Data.instructions) wjQuery("#customins").text(clientData.instructions);
-      if (Data.customHTML) wjQuery("#customht").html(clientData.customHTML);
-wjQuery("#nick").attr("maxlength", clientData.maxName);
-wMacro = (clientData.wMacro == 1) ? true : false;
-sMacro = (clientData.sMacro == 1) ? true : false;
-eMacro = (clientData.eMacro == 1) ? true : false;
-rMacro = (clientData.rMacro == 1) ? true : false;
-qMacro = (clientData.qMacro == 1) ? true : false;
-if (clientData.chat < 2) wjQuery("#chat_textbox").hide(); else wjQuery("#chat_textbox").show();
-showDarkTheme = (clientData.darkBG < 2) ? false : true;
-showSkin = (clientData.skins >= 2) ? true : false;
-hideGrid = (clientData.grid >= 2) ? false : true;
-xa = (clientData.acid < 2) ? false : true;
-showColor = (clientData.colors >= 2) ? false : true;
-showName = (clientData.names < 2) ? false : true;
-showMass = (clientData.showMass < 2) ? false : true;
-smoothRender = (clientData.smooth >= 2) ? 2 : .4;
+     if (Data.customHTML) wjQuery("#customht").html(clientData.customHTML);
+if (Data.maxName) wjQuery("#nick").attr("maxlength", clientData.maxName);
+if (Data.wMacro) wMacro = (clientData.wMacro == 1) ? true : false;
+if (Data.sMacro) sMacro = (clientData.sMacro == 1) ? true : false;
+if (Data.eMacro) eMacro = (clientData.eMacro == 1) ? true : false;
+if (Data.rMacro) rMacro = (clientData.rMacro == 1) ? true : false;
+if (Data.qMacro) qMacro = (clientData.qMacro == 1) ? true : false;
+if (Data.chat) { if (clientData.chat < 2) wjQuery("#chat_textbox").hide(); else wjQuery("#chat_textbox").show();}
+if (Data.darkBG) showDarkTheme = (clientData.darkBG < 2) ? false : true;
+if (Data.skins) showSkin = (clientData.skins >= 2) ? true : false;
+if (Data.grid) hideGrid = (clientData.grid >= 2) ? false : true;
+if (Data.acid) xa = (clientData.acid < 2) ? false : true;
+if (Data.colors) showColor = (clientData.colors >= 2) ? false : true;
+if (Data.names) showName = (clientData.names < 2) ? false : true;
+if (Data.showMass) showMass = (clientData.showMass < 2) ? false : true;
+if (Data.smooth) smoothRender = (clientData.smooth >= 2) ? 2 : .4;
 if (clientData.chat == 0 || clientData.chat == 3) wjQuery('#cchat').attr('disabled', true); else wjQuery('#cchat').attr('disabled', false);
 if (clientData.darkBG == 0 || clientData.darkBG == 3) wjQuery('#cdark').attr('disabled', true); else wjQuery('#cdark').attr('disabled', false);
 if (clientData.skins == 0 || clientData.skins == 3) wjQuery('#cskin').attr('disabled', true); else wjQuery('#cskin').attr('disabled', false);
@@ -1284,7 +1297,7 @@ for (var char, skin = ""; ;) {
         qMacro = false,
         eMacro = false,
         rMacro = false,
-        
+        mouseinterval = false,
         clientData = { // Levels of "permission": 0 = not allowed, 1 = checked off but changeable, 2 = checked on but changeable, 3 = always on
    
    // Macros
