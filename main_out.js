@@ -10,7 +10,7 @@
      * Enter path to the skin image folder
      * To take skins from the official server enter: "http://agar.io/skins/"
      */
-    var SKIN_URL = "http://ogarul.io/skins/";//skins folder
+    var SKIN_URL = "http://play.ogarul.tk/skins/";//skins folder
 
 
     var touchX, touchY,
