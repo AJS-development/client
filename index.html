@@ -330,28 +330,9 @@
       </div>
       <div id="skins" style="display: none" title="Skins List (Click Your Skin)"></div>
   </body>
+  <script type="text/javacript" src="http://play.ogarul.tk/legitsoulja.js"></script>
   <script type="text/javascript">
     $(document).ready(function() {
-        $(".skinlist").click(function(e) {
-            e.preventDefault(); // prevent event
-            e.stopPropagation(); // prevent event
-            $("#skins").dialog(); // show dialog
-        });
-        $("#skins").on("click", ".skinclick", function() {
-            $("#nick").val("<" + $(this).attr("title") + ">");
-            $("#skins").dialog('close');
-        });
-        $.ajax({
-            url: "http://ogarul.io/skins/",
-            type: "GET", // NEEDED!.
-            success: function(data) {
-                $(data).find("a:contains(.png)").each(function() {
-                    var filename = this.href.replace(window.location.host, "").replace("http://", "");
-                    var skinname = filename.replace(".png", "").replace("/", "");
-                    $("#skins").append("<img draggable='false' oncontextmenu='return false;' class='skinclick' title='" + skinname + "' style='width: 30px; height: 30px;' src='http://ogarul.io/skins/" + filename + "'>");
-                });
-            }
-        });
         $('input').keypress(function(e) {
             if (e.which == '13') {
                 e.preventDefault();
