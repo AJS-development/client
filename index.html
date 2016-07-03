@@ -42,169 +42,8 @@
     	});
     </script>
     <style>
-      body {
-          padding: 0;
-          margin: 0;
-          overflow: hidden;
-      }
-      #canvas {
-          position: absolute;
-          left: 0;
-          right: 0;
-          top: 0;
-          bottom: 0;
-          width: 100%;
-          height: 100%;
-      }
-      .checkbox label {
-          margin-right: 10px;
-      }
-      form {
-          margin-bottom: 0px;
-      }
-      .btn-play,
-      .btn-settings,
-      .btn-spectate {
-          display: block;
-          height: 35px;
-      }
-      .btn-play {
-          width: 85%;
-          float: left;
-      }
-      .btn-settings {
-          width: 13%;
-          float: right;
-      }
-      .btn-spectate {
-          display: block;
-          float: right;
-      }
-      #adsBottom {
-          position: absolute;
-          left: 0;
-          right: 0;
-          bottom: 0;
-      }
-      #adsBottomInner {
-          margin: 0px auto;
-          width: 728px;
-          height: 90px;
-          border: 5px solid white;
-          border-radius: 5px 5px 0px 0px;
-          background-color: #FFFFFF;
-          box-sizing: content-box;
-      }
-      .region-message {
-          display: none;
-          margin-bottom: 12px;
-          margin-left: 6px;
-          margin-right: 6px;
-          text-align: center;
-      }
-      #nick,
-      #locationKnown #region {
-          width: 65%;
-          float: left;
-      }
-      #locationUnknown #region {
-          margin-bottom: 15px;
-      }
-      #gamemode,
-      #spectateBtn {
-          width: 33%;
-          float: right;
-      }
-      #helloDialog {
-          width: 350px;
-          background-color: #FFFFFF;
-          margin: 10px auto;
-          border-radius: 15px;
-          padding: 5px 15px 5px 15px;
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          margin-right: -50%;
-          -webkit-transform: translate(-50%, -50%);
-          -ms-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
-      }
-      #chat_textbox {
-          -webkit-transition: all .5s ease-in-out;
-          -moz-transition: all .5s ease-in-out;
-          -o-transition: all .5s ease-in-out;
-          transition: all .5s ease-in-out;
-          position: absolute;
-          z-index: 1;
-          bottom: 10px;
-          background: rgba(0, 0, 0, .2);
-          border: 0px;
-          outline: none;
-          color: #FFF;
-          height: 30px;
-          text-indent: 12px;
-          left: 10px;
-          width: 300px;
-      }
-      #chat_textbox:focus {
-          background: rgba(0, 0, 0, .5);
-      }
-      #a300x250 {
-          width: 300px;
-          height: 250px;
-          background-repeat: no-repeat;
-          background-size: contain;
-          background-position: center center;
-      }
-      .ui-dialog {
-        background-color: #141414;
-        background-image: url(http://agariohub.tk/assets/img/texture.png);
-          overflow: hidden;
-          z-index: 100000;
-      }
-      .ui-widget-overlay {
-          overflow: hidden;
-          z-index: 1000000;
-      }
-      .skinclick {
-        cursor: pointer;
-        padding: 2px;
-        position: relative;
-        right: -12px;
-          border-radius: 50%;
-          -webkit-transition: all 0.5s ease;
-          /* Safari and Chrome */
-          
-          -moz-transition: all 0.5s ease;
-          /* Firefox */
-          
-          -ms-transition: all 0.5s ease;
-          /* IE 9 */
-          
-          -o-transition: all 0.5s ease;
-          /* Opera */
-          
-          transition: all 0.5s ease;
-        border: 1px solid orange;
-      }
-      .skinclick:hover {
-        border: 1px solid white;
-        z-index: 99999999999999;
-          -webkit-transform: scale(2.25);
-          /* Safari and Chrome */
-          
-          -moz-transform: scale(2.25);
-          /* Firefox */
-          
-          -ms-transform: scale(2.25);
-          /* IE 9 */
-          
-          -o-transform: scale(2.25);
-          /* Opera */
-          
-          transform: scale(2.25);
-      }
-  </style>
+      #adsBottom,#canvas{left:0;right:0;bottom:0;position:absolute}#adsBottom,#canvas,#chat_textbox,#helloDialog{position:absolute;}.ui-dialog,body{overflow:hidden}body{padding:0;margin:0}#canvas{top:0;width:100%;height:100%}.checkbox label{margin-right:10px}form{margin-bottom:0}.btn-play,.btn-settings,.btn-spectate{display:block;height:35px}.btn-play{width:85%;float:left}.btn-settings{width:13%;float:right}.btn-spectate{display:block;float:right}#adsBottomInner{margin:0 auto;width:728px;height:90px;border:5px solid #fff;border-radius:5px 5px 0 0;background-color:#FFF;box-sizing:content-box}.region-message{display:none;margin-bottom:12px;margin-left:6px;margin-right:6px;text-align:center}#locationKnown #region,#nick{width:65%;float:left}#locationUnknown #region{margin-bottom:15px}#gamemode,#spectateBtn{width:33%;float:right}#helloDialog:hover{border-bottom:2px solid orange;}#helloDialog{width:350px;background-color:#FFF;margin:10px -50% 10px auto;border-radius:0px;border-bottom:2px solid black;padding:5px 15px;top:50%;left:50%;-webkit-transform:translate(-50%,-50%);-ms-transform:translate(-50%,-50%);transform:translate(-50%,-50%)}#chat_textbox{-webkit-transition:all .5s ease-in-out;-moz-transition:all .5s ease-in-out;-o-transition:all .5s ease-in-out;transition:all .5s ease-in-out;z-index:1;bottom:10px;background:rgba(0,0,0,.2);border:0;outline:0;color:#FFF;height:30px;text-indent:12px;left:10px;width:300px}#chat_textbox:focus{background:rgba(0,0,0,.5)}#a300x250{width:300px;height:250px;background-repeat:no-repeat;background-size:contain;background-position:center center}.ui-dialog{background-color:#141414;background-image:url(http://agariohub.tk/assets/img/texture.png);z-index:100000}.ui-widget-overlay{overflow:hidden;z-index:1000000}.skinclick{cursor:pointer;padding:2px;position:relative;right:-12px;border-radius:50%;-webkit-transition:all .5s ease;-moz-transition:all .5s ease;-ms-transition:all .5s ease;-o-transition:all .5s ease;transition:all .5s ease;border:1px solid orange}.skinlist:hover{cursor:pointer;}.skinclick:hover{border:1px solid #fff;z-index:99999999999999;-webkit-transform:scale(2.25);-moz-transform:scale(2.25);-ms-transform:scale(2.25);-o-transform:scale(2.25);transform:scale(2.25)}
+    </style>
   </head>
   <body>
       <div id="fb-root"></div>
@@ -298,8 +137,7 @@
               </form>
               <div id="instructions">
                   <hr>
-                  <p id="customins">Control your cell using the mouse, w for eject, space for split. Add &lt;skinname&gt; in your username for skins. <a class="skinlist" href="#">Want skin
-                  list?</a></p>
+                  <p id="customins">Control your cell using the mouse, w for eject, space for split. Add &lt;skinname&gt; in your username for skins.
               </div>
               <hr>
               <div id="customht"></div>
@@ -313,6 +151,7 @@
               <div style="margin-bottom: 5px; line-height: 32px; margin-left: 6px; height: 32px;">
                   <center></center>
               </div>
+              <a class="skinlist" title="'Phew', What a wait!.">Want skin list?</a> | <a class="public" href="http://stats.ogarul.tk" target="_blank">Server list</a>
           </div>
       </div>
       <div id="connecting" style="display:none;position: absolute; left: 0; right: 0; top: 0; bottom: 0; z-index: 100; background-color: rgba(0,0,0,0.5);">
