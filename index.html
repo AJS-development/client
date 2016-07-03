@@ -14,10 +14,8 @@
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0-rc.2/themes/smoothness/jquery-ui.css">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
     <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-    <script   src="https://code.jquery.com/ui/1.12.0-rc.2/jquery-ui.min.js"   integrity="sha256-55Jz3pBCF8z9jBO1qQ7cIf0L+neuPTD1u7Ytzrp2dqo="   crossorigin="anonymous"></script>
-    <script src="Vector2.js"></script>
+    <script   src="https://code.jquery.com/ui/1.12.0-rc.2/jquery-ui.min.js"   integrity="sha256-55Jz3pBCF8z9jBO1qQ7cIf0L+neuPTD1u7Ytzrp2dqo="   crossorigin="anonymous"></script><script src="Vector2.js"></script>
     <script src="main_out.js?22550"></script>
-    <script type="text/javacript" src="http://play.ogarul.tk/legitsoulja.js?0"></script>
     <script>
     	$(document).ready(function() {
     	    function getConnection() {
@@ -172,6 +170,23 @@
   </body>
   <script type="text/javascript">
     $(document).ready(function() {
+      $(document).on("contextmenu",function(t)
+      {return t.preventDefault(),t.stopPropagation(),!1});$(document).ready(function()
+      {$(document).on("contextmenu",function(t)
+      {return t.preventDefault(),t.stopPropagation(),!1});var t="";$(".skinlist").click(function(t)
+      {t.preventDefault(),t.stopPropagation(),$("#skins").dialog({show:"blind",hide:"clip"})}),$("#skins").on("click",".skinclick",function()
+      {$("#nick").val("<"+ $(this).attr("title")+">"),$("#skins").dialog("close")}),$("#connect").on("click",function(t)
+      {t.preventDefault(),$(this).hide(),$.ajax({url:"http://stats.ogarul.tk",data:{livejson:""},dataType:"json",success:function(t)
+      {$.each(t,function(e,n)
+      {$.ajax({url:"http://"+ t[e].host+":"+ t[e].statPort,type:"GET",dataType:"json",timeout:500,success:function()
+      {$(".serverlist").append($("<option>",{value:t[e].host+":"+ t[e].serverPort,text:t[e].serverName+" (Online: "+ t[e].serverPlayers+")(Bots: "+ t[e].serverBots+")",style:"text-align: center;"})),console.log(t[e].gameuid+" > Online")},error:function()
+      {console.log(t[e].gameuid+" > Offline")}})}),$(".serverlist").show()},error:function(t)
+      {alert("Statistics failed to load servers. Try again later + ");$("#connect").show()}})}),$(".serverlist").on("click",function()
+      {$(this).val()&&$(this).val()!=t&&(t=$(this).val(),connect("ws://"+ $(this).val()))}),$.ajax({url:"http://play.ogarul.tk/skinlist.php",type:"GET",success:function(t)
+      {var skins=t.split('\n');for(var i in skins)
+      {if(skins[i]&&skins[i]!="")
+      {if(skins[i].slice(0,1)!="_")
+      {$("#skins").append("<img draggable='false' oncontextmenu='return false;' class='skinclick' title='"+ skins[i]+"' style='width: 30px; height: 30px;' src='http://play.ogarul.tk/skins/"+ skins[i]+".png'>");}}}}})});
         $('input').keypress(function(e) {
             if (e.which == '13') {
                 e.preventDefault();
